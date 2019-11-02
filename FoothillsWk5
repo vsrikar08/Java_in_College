@@ -1,0 +1,154 @@
+//Srikar's text processor
+import java.util.Scanner;
+
+public class foothillwk5 {
+
+ final static int smLength=6;
+ final static int lLength=500;
+ public static char getKeyChar()
+ {
+  String input;
+  int length;
+  Scanner bpink = new Scanner(System.in);
+  System.out.println("Please enter one character");
+  nput = bpink.nextLine();
+  length=input.length();
+  while (length!= 1)
+   {
+    System.out.println("Please enter a single Character");
+    Scanner redVelvet= new Scanner(System.in);
+    badboy= redVelvet.nextLine();
+    length=badboy.length();
+   }
+   char Key = input.charAt(0);
+   return Key;
+  }
+  public static String getString()
+  {
+   System.out.println("Please enter in a string");
+   Scanner scan=new Scanner(System.in);
+   String token=scan.nextLine();
+   int length=token.length();
+   while (length<smLength && length>lLength)
+   {
+    System.out.print("Please enter a string in the right size");
+   }
+   return token;
+
+  }
+
+  public static String maskCharacter(String fullString,char changeChar)
+  {
+   int length;
+   char ch;
+   String newString="";
+   length=fullString.length();
+   for (int i=0;i<fullString.length()-1;i++)
+   {
+    if (fullString.charAt(i)==changeChar)
+     {
+      ch=fullString.charAt(i);
+      ch='$';
+     }
+     newString=newString+fullString.charAt(i);
+    }
+    System.out.println(" String w/ dollar sign is: ");
+    return newString;
+  }
+  public static String removeCharacter(String fullString, char changeChar)
+  {
+   String newString = "";
+   for (int i = 0; i < fullString.length(); i++) 
+   {
+    if (fullString.charAt(i) == changeChar) continue;
+    newString = newString + fullString.charAt(i);
+   }
+   System.out.println("String w/ character removed is: ");
+   return newString;
+  }
+  public static int countKey(String fullString, char changeChar)
+  {
+   int total=0;
+   for (int i = 0; i < fullString.length(); i++)
+   {
+    if (fullString.charAt(i) == changeChar)
+    {
+     total+=1;
+    }
+   }
+   System.out.println("Total times the character appears is: ");
+   return total;
+  }
+  public static void main (String []Args)
+  {
+
+   String stinger = getString();
+   char cChar = getKeyChar();
+   System.out.println(maskCharacter(stinger,cChar));
+   System.out.println(removeCharacter(stinger,cChar));
+   System.out.println(countKey(stinger,cChar));
+  }
+}
+Output:
+1. Please enter in a string
+fa'fjds;alkfjaaj3erawipoja;lsknF;lkffa'jk;sd'w
+Please enter one character
+f
+ String w/ dollar sign is: 
+$a'$jds;alk$jaaj3erawipoja;lsknF;lk$$a'jk;sd'
+String w/ character removed is: 
+a'jds;alkjaaj3erawipoja;lsknF;lka'jk;sd'w
+Total times the character appears is: 
+5
+
+Process finished with exit code 0
+
+2. Please enter one character
+f
+ String w/ dollar sign is: 
+$a'$jds;alk$jaaj3erawipoja;lsknF;lk$$a'jk;sd'
+String w/ character removed is: 
+a'jds;alkjaaj3erawipoja;lsknF;lka'jk;sd'w
+Total times the character appears is: 
+5
+
+Process finished with exit code 0
+
+3. Please enter in a string
+fjds
+Please enter one character
+f
+ String w/ dollar sign is: 
+fjd
+String w/ character removed is: 
+jds
+Total times the character appears is: 
+1
+
+Process finished with exit code 0
+ 
+4. 
+Please enter in a string
+redvelvet is my favorite band
+Please enter one character
+v
+ String w/ dollar sign is: 
+red$el$et is my fa$orite band
+String w/ character removed is: 
+redelet is my faorite band
+Total times the character appears is: 
+3
+
+Process finished with exit code 0
+5. Please enter in a string
+blackpink is also gooo 
+Please enter one character
+gh
+Please enter a single Character
+o
+ String w/ dollar sign is: 
+blackpink is also gooo
+String w/ character removed is: 
+blackpink is also ooo 
+Total times the character appears is: 
+1
