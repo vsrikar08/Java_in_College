@@ -1,0 +1,179 @@
+public class FoothillWk8 {
+ static class Dateprofile {
+  private char gender, searchGender;
+  private int romance, finance, distance;
+  private String name;
+  //range lims
+  public static final int MIN_ROMANCE = 1, MAX_ROMANCE = 10, MIN_FINANCE = 1, MAX_FINANCE = 10, MIN_NAME_LENGHT = 1, MAX_NAME_LENGTH = 10;
+  public static final char MALE = 'M', FEMALE = 'F';
+  public static final int MIN_DISTANCE = 1, MAX_DISTANCE = 10;
+  public static final char DEFAULT_GEND = FEMALE, DEFAULT_SEARCH_GEND = FEMALE, DEFAULT_DISTANCE = 5;
+  public static final int DEFAULT_ROMANCE = 5, DEFAULT_FINANCE = 5;
+  public static final String DEFAULT_NAME = "(Name not found)";
+
+  //gender check
+  //setters
+  public boolean setDistance(int distance)
+  {
+   distance = Character.toUpperCase(distance);
+   if (distance < MIN_DISTANCE && distance > MAX_DISTANCE)
+    return false;
+   this.distance = distance;
+   return true;
+  }
+  public boolean setGender(char gender) {
+   gender = Character.toUpperCase(gender);
+   if (gender != MALE && gender != FEMALE)
+    return false;
+   this.gender = gender;
+   return true;
+  }
+
+  public boolean setSearchGender(char searchGender) {
+   searchGender = Character.toUpperCase(gender);
+   if (searchGender != MALE && searchGender != FEMALE)
+    return false;
+   this.searchGender = searchGender;
+   return true;
+  }
+
+  // romance check
+  public boolean setRomance(int romance) {
+   if (romance < MIN_ROMANCE || romance > MAX_ROMANCE)
+    return false;
+   this.romance = romance;
+   return true;
+  }
+
+  //finance check
+  public boolean setFinance(int finance) {
+   if (finance < MIN_FINANCE || finance > MAX_FINANCE)
+    return false;
+   this.finance=finance;
+   return true;
+  }
+
+  //NAME check
+  public boolean setName(String name) {
+   if (name == null || name.length() < MIN_NAME_LENGHT)
+    return false;
+   this.name = name;
+   return true;
+  }
+  public int getDistance()
+  {
+   return distance;
+  }
+
+  public char getGender() {
+   return gender;
+  }
+
+  public char getSearchGender() {
+   return searchGender;
+  }
+
+  public int getRomance() {
+   return romance;
+  }
+
+  public int getFinance() {
+   return finance;
+  }
+
+  public String getName() {
+   return name;
+  }
+
+  public void setAll(char gender, char searchGender, int romance, int finance, String name, int distance) {
+   if (!setGender(gender))
+    this.gender = DEFAULT_GEND;
+   if (!setSearchGender(searchGender))
+    this.searchGender = DEFAULT_SEARCH_GEND;
+   if (!setRomance(romance))
+    this.romance = DEFAULT_ROMANCE;
+   if (!setFinance(finance))
+    this.finance = DEFAULT_FINANCE;
+   if (!setName(name))
+    this.name = DEFAULT_NAME;
+   if (!setDistance(distance))
+    this.distance=DEFAULT_DISTANCE;
+  }
+
+  public void setDefaults() {
+   setAll(DEFAULT_GEND, DEFAULT_SEARCH_GEND, DEFAULT_ROMANCE,
+    DEFAULT_FINANCE, DEFAULT_NAME, DEFAULT_DISTANCE);
+  }
+
+  //constructors
+  public Dateprofile() {
+   setDefaults();
+  }
+
+  public Dateprofile(char gender, char searchGender, int romance, int finance, String Name, int distance) {
+   setAll(gender, searchGender, finance, romance, Name, distance);
+  }
+
+  // determine how fit two people are for a relationship
+  public double fitValue(Dateprofile partner) {
+   if (determineGenderFit(partner) == 1)
+    return 0;
+   return (determineRomanceFit(partner) + determineFinanceFit(partner)+determineDistanceFit(partner)) / 3;
+  }
+  private double determineDistanceFit(Dateprofile partner)
+  {
+   return 1 / (double) (Math.abs(distance - partner.distance) + 1);
+  }
+
+  private double determineGenderFit(Dateprofile partner) {
+   if(this.getSearchGender() == partner.getGender() && this.getGender() == partner.getSearchGender()) {
+
+    return 1.0;
+   }
+   return 0.0;
+  }
+
+  private double determineRomanceFit(Dateprofile partner) {
+   return 1 / (double) (Math.abs(romance - partner.romance) + 1);
+  }
+
+  private double determineFinanceFit(Dateprofile partner) {
+   return 1 / (double) (Math.abs(finance - partner.finance) + 1);
+
+  }
+ }
+
+
+ static void displayTwoProfiles(Dateprofile profile1, Dateprofile profile2) {
+  String outputStr = "Fit between " + profile1.getName() + " and "
+   + profile2.getName() + ":    ";
+  outputStr += (int) (profile1.fitValue(profile2) * 1000) / 1000.;
+  System.out.println(outputStr);
+ }
+ public static void main(String[] args) {
+  Dateprofile applicant1 = new Dateprofile('m', 'f', 10, 6, "Srikar Voleti", 5);
+  Dateprofile applicant2 = new Dateprofile('f', 'm', 7, 5, "Sneha Laximin", 6);
+  Dateprofile applicant3 = new Dateprofile('m', 'f', 4, 7, "Rahul Gandhi International Airport", 3);
+  Dateprofile applicant4 = new Dateprofile('f', 'm', 9, 7, "Navya R.", 10);
+
+  displayTwoProfiles(applicant1, applicant1);
+  displayTwoProfiles(applicant1, applicant2);
+  displayTwoProfiles(applicant1, applicant3);
+  displayTwoProfiles(applicant1, applicant4);
+  System.out.println();
+  displayTwoProfiles(applicant2, applicant1);
+  displayTwoProfiles(applicant2, applicant2);
+  displayTwoProfiles(applicant2, applicant3);
+  displayTwoProfiles(applicant2, applicant4);
+  System.out.println();
+  displayTwoProfiles(applicant3, applicant1);
+  displayTwoProfiles(applicant3, applicant2);
+  displayTwoProfiles(applicant3, applicant3);
+  displayTwoProfiles(applicant3, applicant4);
+  System.out.println();
+  displayTwoProfiles(applicant4, applicant1);
+  displayTwoProfiles(applicant4, applicant2);
+  displayTwoProfiles(applicant4, applicant3);
+  displayTwoProfiles(applicant4, applicant4);
+ }
+}
