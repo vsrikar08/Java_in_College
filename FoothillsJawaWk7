@@ -1,0 +1,452 @@
+import java.util.Scanner;
+public class Foothillwk7 
+{
+ static final int MIN_BET = 0, MAX_BET = 50, BAR_PCT = 38, CHERRIES_PCT = 40,
+ SPACE_PCT = 7, SEVEN_PCT = 15;
+ static final String BAR = "BAR", CHERRIES = "cherries", SPACE = "(space)",
+ SEVEN = "7";
+ //class TripleString
+ static class TripleString
+ {
+   private String string1, string2, string3;
+   public static final int MAX_LEN = 50;
+   public static final int MIN_LEN = 1;
+   public static final String DEFAULT_STRING = "(undefined)";
+   // constructors
+   TripleString()
+   {
+    string1 = DEFAULT_STRING;
+    string2 = DEFAULT_STRING;
+    string3 = DEFAULT_STRING;
+   }
+
+   TripleString(String string1, String string2, String string3)
+   {
+    if ( ! setString1(string1) )
+     //string1 = DEFAULT_STRING;
+     setString1(DEFAULT_STRING);
+    if ( ! setString2(string2) )
+     //string2 = DEFAULT_STRING;
+     setString2(DEFAULT_STRING);
+    if ( ! setString3(string3) )
+     //string3 = DEFAULT_STRING;
+     setString3(DEFAULT_STRING);
+   }
+
+   // mutators
+   public boolean setString1(String str)
+   {
+    if ( !validString(str) )
+    return false;
+    string1 = str;
+    return true;
+   }
+
+   public boolean setString2(String str)
+   {
+   if ( !validString(str) )
+    return false;
+   string2 = str;
+   return true;
+  }
+
+  public boolean setString3(String str)
+  {
+   if ( !validString(str) )
+    return false;
+   string3 = str;
+   return true;
+  }
+
+  // accessors
+  public String getString1() { return string1; }
+  public String getString2() { return string2; }
+  public String getString3() { return string3; }
+
+  // notice that because validString does not make use of instance data
+  // it should be declared static
+  private boolean validString( String str )
+  {
+   if (str == null)
+    return false;
+   if (str.length() > MAX_LEN || str.length() < MIN_LEN )
+    return false;
+   else
+    return true;
+  }
+  // slightly changed to match sample output of this assignment
+  public String toString()
+  {
+   String retVal;
+   retVal = " " + string1 + "  " + string2 + "  " + string3;
+   return retVal;
+  }
+ }
+ public static int getBet() {
+  int newer;
+  while (true) 
+  {
+   System.out.print("Please enter some money between 0-50 dollars");
+   Scanner han = new Scanner(System.in);
+   newer = han.nextInt();
+   if (newer < MIN_BET || newer> MAX_BET) 
+   {
+    System.out.println("Sorry, that bet is not valid.");
+   } 
+   else 
+   {
+    break;
+   }
+  }
+ return newer;
+
+ }
+ //return pull w/ random outcomes
+ public static TripleString pull()
+ {
+  TripleString blackpink = new TripleString();
+  blackpink.setString1(randString());
+  blackpink.setString2(randString());
+  blackpink.setString3(randString());
+  return blackpink;
+
+ }
+ //generate random outcome of one slot
+ public static String randString()
+ {
+  int numtest;
+  final int BARCUTOFF, CHERRIESCUTOFF, SPACECUTOFF;
+  numtest=(int)(Math.random()*100);
+  // Math.random() is from 0 to 1, so (int)Math.random() truncates it to 0
+  //produces number btwn 0 and 999
+  //computes cutoff
+  BARCUTOFF =  BAR_PCT;
+  CHERRIESCUTOFF = BARCUTOFF + CHERRIES_PCT;
+  SPACECUTOFF =CHERRIESCUTOFF + SPACE_PCT;
+  //bar = 38%, cherries = 40%, space = 7%, seven = 15%
+  if (numtest <BARCUTOFF)
+  {
+   return BAR;
+  }
+  else if (numtest < CHERRIESCUTOFF )
+  {
+   return CHERRIES;
+  }
+  else if (numtest < SPACECUTOFF)
+  {
+   return SPACE;
+  }
+  else
+  {
+   return SEVEN;
+  }
+
+ }
+ // return pay multiplier based on pull
+ public static int getPayMultiplier (TripleString thePull)
+ {
+  int payer;
+  if (thePull.getString1().equals(CHERRIES))
+   if (thePull.getString2().equals(CHERRIES))
+    if (thePull.getString3().equals(CHERRIES))
+     payer = 30;
+    else
+     payer = 15;
+   else
+    payer = 5;
+   else if (thePull.getString1().equals(BAR) &&
+   thePull.getString2().equals(BAR) &&
+   thePull.getString3().equals(BAR))
+    payer = 50;
+   else if (thePull.getString1().equals(SEVEN) &&
+   thePull.getString2().equals(SEVEN) &&
+   thePull.getString3().equals(SEVEN))
+    payer = 100;
+   else 
+    payer = 0;
+   return payer;
+
+ }
+ // display the pull and the user's winnings
+ public static void display(TripleString thePull, int winnings)
+ {
+  System.out.println(thePull.toString());
+  if (winnings==0)
+  {
+   System.out.println("You lose sucker");
+  }
+  else
+  {
+   System.out.println("Congrats, you win: "+ winnings);
+  }
+ }
+ //main function
+ public static void main (String [] args)
+ {
+  int amour, winnings;
+  TripleString pull;
+  // continue to play until user quits
+  while (true)
+  {
+   amour= getBet();
+   if (amour==0)
+   {
+    System.out.println("Thanks for coming here");
+    break;
+   }
+   System.out.println ("and your pull is....");
+   pull=pull();
+   winnings=getPayMultiplier(pull)*amour;
+   display (pull, winnings);
+  }
+ }
+
+}
+
+OUTPUT:
+Please enter some money between 0-50 dollars5
+and your pull is....
+ BAR  BAR  cherries
+You lose sucker
+
+Please enter some money between 0-50 dollars5
+and your pull is....
+ BAR  BAR  cherries
+You lose sucker
+6
+Please enter some money between 0-50 dollars6
+and your pull is....
+ cherries  BAR  BAR
+Congrats, you win: 30
+5
+Please enter some money between 0-50 dollars7
+and your pull is....
+ 7  cherries  cherries
+You lose sucker
+5
+Please enter some money between 0-50 dollars14
+and your pull is....
+ cherries  cherries  BAR
+Congrats, you win: 75
+16
+Please enter some money between 0-50 dollars7
+and your pull is....
+ 7  (space)  7
+You lose sucker
+6
+Please enter some money between 0-50 dollars8
+and your pull is....
+ BAR  7  BAR
+You lose sucker
+1
+Please enter some money between 0-50 dollars2
+and your pull is....
+ BAR  BAR  cherries
+You lose sucker
+Please enter some money between 0-50 dollars7
+and your pull is....
+ cherries  BAR  (space)
+Congrats, you win: 35
+Please enter some money between 0-50 dollars45
+and your pull is....
+ cherries  BAR  cherries
+Congrats, you win: 225
+Please enter some money between 0-50 dollars31
+and your pull is....
+ (space)  BAR  7
+You lose sucker
+Please enter some money between 0-50 dollars56
+Sorry, that bet is not valid.
+Please enter some money between 0-50 dollars56
+Sorry, that bet is not valid.
+Please enter some money between 0-50 dollars34
+and your pull is....
+ 7  cherries  cherries
+You lose sucker
+Please enter some money between 0-50 dollars8
+and your pull is....
+ (space)  BAR  (space)
+You lose sucker
+Please enter some money between 0-50 dollars-1
+Sorry, that bet is not valid.
+Please enter some money between 0-50 dollars7
+and your pull is....
+ BAR  cherries  (space)
+You lose sucker
+Please enter some money between 0-50 dollars8
+and your pull is....
+ cherries  cherries  (space)
+Congrats, you win: 120
+Please enter some money between 0-50 dollars45
+and your pull is....
+ BAR  cherries  BAR
+You lose sucker
+Please enter some money between 0-50 dollars-78
+Sorry, that bet is not valid.
+Please enter some money between 0-50 dollars45
+and your pull is....
+ cherries  BAR  cherries
+Congrats, you win: 225
+Please enter some money between 0-50 dollars34
+and your pull is....
+ BAR  7  cherries
+You lose sucker
+Please enter some money between 0-50 dollars-78
+Sorry, that bet is not valid.
+Please enter some money between 0-50 dollars67
+Sorry, that bet is not valid.
+Please enter some money between 0-50 dollars34
+and your pull is....
+ BAR  7  (space)
+You lose sucker
+Please enter some money between 0-50 dollars56
+Sorry, that bet is not valid.
+Please enter some money between 0-50 dollars23
+and your pull is....
+ cherries  cherries  (space)
+Congrats, you win: 345
+Please enter some money between 0-50 dollars12
+and your pull is....
+ BAR  cherries  cherries
+You lose sucker
+Please enter some money between 0-50 dollars23
+and your pull is....
+ BAR  7  BAR
+You lose sucker
+Please enter some money between 0-50 dollars4
+and your pull is....
+ cherries  cherries  cherries
+Congrats, you win: 120
+Please enter some money between 0-50 dollars5
+and your pull is....
+ cherries  BAR  BAR
+Congrats, you win: 25
+Please enter some money between 0-50 dollars67
+Sorry, that bet is not valid.
+Please enter some money between 0-50 dollars5
+and your pull is....
+ BAR  BAR  cherries
+You lose sucker
+Please enter some money between 0-50 dollars6
+and your pull is....
+ cherries  BAR  BAR
+Congrats, you win: 30
+Please enter some money between 0-50 dollars6
+and your pull is....
+ BAR  BAR  BAR
+Congrats, you win: 300
+Please enter some money between 0-50 dollars8
+and your pull is....
+ cherries  7  BAR
+Congrats, you win: 40
+Please enter some money between 0-50 dollars4
+and your pull is....
+ cherries  (space)  BAR
+Congrats, you win: 20
+Please enter some money between 0-50 dollars5
+and your pull is....
+ BAR  cherries  BAR
+You lose sucker
+Please enter some money between 0-50 dollars6
+and your pull is....
+ (space)  cherries  BAR
+You lose sucker
+Please enter some money between 0-50 dollars34
+and your pull is....
+ cherries  cherries  cherries
+Congrats, you win: 1020
+Please enter some money between 0-50 dollars67
+Sorry, that bet is not valid.
+Please enter some money between 0-50 dollars5
+and your pull is....
+ 7  cherries  cherries
+You lose sucker
+Please enter some money between 0-50 dollars6
+and your pull is....
+ cherries  cherries  cherries
+Congrats, you win: 180
+Please enter some money between 0-50 dollars78
+Sorry, that bet is not valid.
+Please enter some money between 0-50 dollars5
+and your pull is....
+ BAR  cherries  7
+You lose sucker
+Please enter some money between 0-50 dollars31
+and your pull is....
+ BAR  BAR  BAR
+Congrats, you win: 1550
+Please enter some money between 0-50 dollars-64332
+Sorry, that bet is not valid.
+Please enter some money between 0-50 dollars50
+and your pull is....
+ cherries  cherries  cherries
+Congrats, you win: 1500
+Please enter some money between 0-50 dollars
+6
+and your pull is....
+ 7  BAR  cherries
+You lose sucker
+Please enter some money between 0-50 dollars7
+and your pull is....
+ 7  cherries  cherries
+You lose sucker
+Please enter some money between 0-50 dollars5
+and your pull is....
+ cherries  cherries  cherries
+Congrats, you win: 150
+Please enter some money between 0-50 dollars3
+and your pull is....
+ BAR  BAR  BAR
+Congrats, you win: 150
+Please enter some money between 0-50 dollars67
+Sorry, that bet is not valid.
+Please enter some money between 0-50 dollars4
+and your pull is....
+ cherries  BAR  cherries
+Congrats, you win: 20
+Please enter some money between 0-50 dollars5
+and your pull is....
+ BAR  BAR  BAR
+Congrats, you win: 250
+Please enter some money between 0-50 dollars5
+and your pull is....
+ BAR  cherries  BAR
+You lose sucker
+Please enter some money between 0-50 dollars6
+and your pull is....
+ cherries  cherries  BAR
+Congrats, you win: 90
+Please enter some money between 0-50 dollars34
+and your pull is....
+ (space)  cherries  cherries
+You lose sucker
+Please enter some money between 0-50 dollars67
+Sorry, that bet is not valid.
+Please enter some money between 0-50 dollars56
+Sorry, that bet is not valid.
+Please enter some money between 0-50 dollars3
+and your pull is....
+ 7  cherries  cherries
+You lose sucker
+Please enter some money between 0-50 dollars6
+and your pull is....
+ cherries  BAR  cherries
+Congrats, you win: 30
+Please enter some money between 0-50 dollars16
+and your pull is....
+ (space)  cherries  cherries
+You lose sucker
+Please enter some money between 0-50 dollars32
+and your pull is....
+ 7  cherries  cherries
+You lose sucker
+Please enter some money between 0-50 dollars48
+and your pull is....
+ 7  BAR  cherries
+You lose sucker
+Please enter some money between 0-50 dollars0
+Thanks for coming here
+
+Process finished with exit code 0
+
+
