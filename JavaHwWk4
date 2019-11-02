@@ -1,0 +1,222 @@
+code:
+import java.util.Scanner;
+public class Foothill {
+
+ public static void main(String[] args) {
+  String choice;
+  System.out.println("Please input either p or s");
+  boolean shutDown = false;
+
+
+  int StampCredits=0;
+  while (shutDown == false) {
+   System.out.println("Menu:");
+    System.out.println("   P (Process or Purchase)");
+    System.out.println("   S (Shut down");
+    Scanner scan = new Scanner(System.in);
+    choice = scan.nextLine();
+    System.out.println("Your Choice: "+ choice);
+    if (choice.charAt(0) == 'P' || choice.charAt(0) == 'p') {
+     if(StampCredits >= 9) {
+      System.out.println("You Qualify for a free Yogurt. Would you like to use your credits? (Y/N)");
+      choice = scan.nextLine();
+      if((choice.charAt(0) == 'Y') || (choice.charAt(0) == 'y')) {
+       System.out.println("Enjoy your free Yogurt");
+       StampCredits -= 9;
+       System.out.println( "You have "+ StampCredits+" stamps left");
+       continue;
+      }
+      else if((choice.charAt(0) != 'N') && (choice.charAt(0) != 'n')) {
+       System.out.println("*** Invalid response ***");
+       continue;
+      }
+     }
+     // Either 'N' or 'n' or no credits we come here
+     System.out.println("How many Yogurts would like to buy?");
+     scan = new Scanner(System.in);
+     int n = scan.nextInt();
+     StampCredits += n;
+     System.out.println("You Just earned " + n + " stamps and have total of " + StampCredits + " to use");
+    } else if (choice.charAt(0) == 's' || choice.charAt(0) == 'S') {
+       System.out.println("Good Bye!!");
+        shutDown = true;
+        System.exit(0);
+
+    }else {
+      System.out.println("** Please Input p or P or s or S ***");
+    }
+
+   } /* while loop */
+   System.exit(0);
+  }
+}
+Output:
+
+1. Please input either p or s
+Menu:
+   P (Process or Purchase)
+   S (Shut down
+p
+Your Choice: p
+How many Yogurts would like to buy?
+14
+You Just earned 14 stamps and have total of 14 to use
+
+Menu:
+   P (Process or Purchase)
+   S (Shut down
+p
+Your Choice: p
+You Qualify for a free Yogurt. Would you like to use your credits? (Y/N)
+y
+Enjoy your free Yogurt
+Menu:
+   P (Process or Purchase)
+   S (Shut down
+s
+Your Choice: s
+Good Bye!!
+
+Process finished with exit code 0
+
+2. Menu:
+   P (Process or Purchase)
+   S (Shut down
+s
+Your Choice: s
+Good Bye!!
+
+Process finished with exit code 0
+
+3. Menu:
+   P (Process or Purchase)
+   S (Shut down
+c
+Your Choice: c
+** Please Input p or P or s or S ***
+Menu:
+   P (Process or Purchase)
+   S (Shut down
+p
+Your Choice: p
+How many Yogurts would like to buy?
+20
+You Just earned 20 stamps and have total of 20 to use
+Menu:
+   P (Process or Purchase)
+   S (Shut down
+s
+Your Choice: s
+Good Bye!!
+
+Process finished with exit code 0
+
+ 3. Please input either p or s
+Menu:
+   P (Process or Purchase)
+   S (Shut down
+popo
+Your Choice: popo
+How many Yogurts would like to buy?
+14
+You Just earned 14 stamps and have total of 14 to use
+Menu:
+   P (Process or Purchase)
+   S (Shut down
+6
+Your Choice: 6
+** Please Input p or P or s or S ***
+Menu:
+   P (Process or Purchase)
+   S (Shut down
+p
+Your Choice: p
+You Qualify for a free Yogurt. Would you like to use your credits? (Y/N)
+y
+Enjoy your free Yogurt
+Menu:
+   P (Process or Purchase)
+   S (Shut down
+s
+Your Choice: s
+Good Bye!!
+
+Process finished with exit code 0
+
+4. 
+Please input either p or s
+Menu:
+   P (Process or Purchase)
+   S (Shut down
+pop bubble
+Your Choice: pop bubble
+How many Yogurts would like to buy?
+50
+You Just earned 50 stamps and have total of 50 to use
+Menu:
+   P (Process or Purchase)
+   S (Shut down
+seung 
+Your Choice: seung 
+Good Bye!!
+
+Process finished with exit code 0
+
+5. 
+Please input either p or s
+Menu:
+   P (Process or Purchase)
+   S (Shut down
+tzuyu
+Your Choice: tzuyu
+** Please Input p or P or s or S ***
+Menu:
+   P (Process or Purchase)
+   S (Shut down
+p
+Your Choice: p
+How many Yogurts would like to buy?
+3
+You Just earned 3 stamps and have total of 3 to use
+Menu:
+   P (Process or Purchase)
+   S (Shut down
+p
+Your Choice: p
+How many Yogurts would like to buy?
+20
+You Just earned 20 stamps and have total of 23 to use
+Menu:
+   P (Process or Purchase)
+   S (Shut down
+p
+Your Choice: p
+You Qualify for a free Yogurt. Would you like to use your credits? (Y/N)
+y
+Enjoy your free Yogurt
+You have 14 stamps left
+Menu:
+   P (Process or Purchase)
+   S (Shut down
+s
+Your Choice: s
+Good Bye!!
+
+Process finished with exit code 0
+6. 
+Please input either p or s
+Menu:
+   P (Process or Purchase)
+   S (Shut down
+baru baru
+Your Choice: baru baru
+** Please Input p or P or s or S ***
+Menu:
+   P (Process or Purchase)
+   S (Shut down
+s
+Your Choice: s
+Good Bye!!
+
+Process finished with exit code 0
+
