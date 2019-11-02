@@ -1,0 +1,87 @@
+public class TripleString {
+ public static final int MIN_LENS=1;
+ public static final int MAX_LENS=500;
+ public static final String DEFAULT_STRING="";
+ private String string1;
+ private String string2;
+ private String string3;
+ private boolean validateString(String str)
+ {
+  if (str.length()>=MIN_LENS&&str.length()<=MAX_LENS)
+  {
+   return true;
+  }
+  else
+  {
+   return false;
+  }
+ }
+ private String getString1()
+ {
+  return string1;
+ }
+ private String getString2()
+ {
+  return string2;
+ }
+ private String getString3()
+ {
+  return string3;
+ }
+ private boolean setString1 (String str)
+ {
+  if (validateString(str))
+  {
+   string1=str;
+   return true;
+  }
+  else
+  {
+   return false;
+  }
+ }
+ private boolean setString2 (String str) 
+ {
+  if (validateString(str))
+  {
+   string2=str;
+   return true;
+  }
+  else
+  {
+   return false;
+  }
+
+ }
+ private boolean setString3 (String str) 
+ {
+  if (validateString(str))
+  {
+   string3=str;
+   return true;
+  }
+  else
+  {
+   return false;
+  }
+ }
+ public  TripleString()
+ {
+  string1=string2=string3=DEFAULT_STRING;
+ }
+ public  TripleString(String str1, String str2, String str3)
+ {
+  string1=string2=string3=DEFAULT_STRING;
+  System.out.println("String 1 good or not: "+setString1(str1));
+  System.out.println("String 2 good or not: "+ setString2(str2));
+  System.out.println ("String 3 good or not: "+setString3(str3));
+ }
+ public static void main (String []Args)
+ {
+  TripleString s1 = new TripleString();
+  TripleString s2= new TripleString("Republicans", "Democrats", "midterms");
+  s1.setString1("Srikar Now");
+  s2.setString3("Object Programming");
+ }
+}
+
